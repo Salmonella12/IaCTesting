@@ -13,11 +13,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # No project dependencies. Keep it lean & fast.
-
       - name: Run Codacy Analysis CLI and upload results
         uses: codacy/codacy-analysis-cli-action@v4
         with:
-          apiToken: ${{ secrets.CODACY_PROJECT_TOKEN }}
-          run: |
-            codacy-analysis-cli analyze --upload --allow-network --verbose
+          api-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+          upload: true
+          allow-network: true
+          verbose: true
