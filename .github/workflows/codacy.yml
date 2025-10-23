@@ -13,13 +13,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # Run the Codacy Analysis CLI Action (v4 syntax)
+      # Uses your project token and uploads results back to Codacy.
+      # We disable dockerized tools to avoid container engine issues on runners.
       - name: Run Codacy Analysis CLI and upload results
         uses: codacy/codacy-analysis-cli-action@v4
         with:
-          api-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+          project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+          directory: .
           upload: true
           allow-network: true
           verbose: true
-          # Important new flags:
-          run-docker-tools: true
-          gh-code-scanning-compat: true
+          run-docker-tools: "false"
+          skip-uncommitted-files-check: true
+          skip-container-engine-check: true
+          fail-if-incomplete: false
